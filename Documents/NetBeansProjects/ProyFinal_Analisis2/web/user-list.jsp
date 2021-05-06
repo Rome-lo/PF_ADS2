@@ -21,6 +21,8 @@
             <ul class="navbar-nav">
                 <li><a href="<%=request.getContextPath()%>/list"
                         class="nav-link">Usuarios</a></li>
+                <li><a href="<%=request.getContextPath()%>/list"
+                        class="nav-link">Usuarios</a></li>
             </ul>
         </nav>
     </header>
@@ -30,7 +32,7 @@
             <!-- <div class="alert alert-success" *ngIf='message'>{{message}}</div> -->
 
         <div class="container">
-            <h3 class="text-center">Usuarios</h3>
+            <h3 class="text-center">Estos negocios pueden interesarte</h3>
             <hr>
             <div class="container text-left">
 
@@ -42,23 +44,27 @@
                     <tr>
                             <th>Id</th>
                             <th>Nombre</th>
-                            <th>Correo</th>
-                            <th>Pais</th>
+                            <th>Apellido</th>
+                            <th>Nickname</th>
+                            <th>Contraseña</th>
+                            <th>Dirección</th>
                             <th>Acciones</th>
                     </tr>
                 </thead>
                 <tbody>
 
-                    <c:forEach var="user" items="${listUser}">
+                    <c:forEach var="usuario" items="${listUser}">
 
                         <tr>
-                            <td><c:out value="${user.id}" /></td>
-                            <td><c:out value="${user.name}" /></td>
-                            <td><c:out value="${user.email}" /></td>
-                            <td><c:out value="${user.country}" /></td>
-                            <td><a href="edit?id=<c:out value='${user.id}' />">Edit</a>
+                            <td><c:out value="${usuario.idusuario}" /></td>
+                            <td><c:out value="${usuario.nombre}" /></td>
+                            <td><c:out value="${usuario.apellido}" /></td>
+                            <td><c:out value="${usuario.nickname}" /></td>
+                            <td><c:out value="${usuario.password}" /></td>
+                            <td><c:out value="${usuario.id_dir}" /></td>
+                            <td><a href="edit?idusuario=<c:out value='${usuario.idusuario}' />">Edit</a>
                                     &nbsp;&nbsp;&nbsp;&nbsp; <a
-                                    href="delete?id=<c:out value='${user.id}' />">Delete</a></td>
+                                    href="delete?idusuario=<c:out value='${usuario.idusuario}' />">Delete</a></td>
                         </tr>
                     </c:forEach>
 
