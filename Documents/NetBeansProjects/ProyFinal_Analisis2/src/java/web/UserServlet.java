@@ -11,6 +11,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import model.Negocio;
 import model.User;
 import model.Usuario;
 
@@ -50,8 +51,14 @@ public class UserServlet extends HttpServlet {
 			case "/update":
 				updateUser(request, response);
 				break;
+                        case "/login":
+				loginUser(request, response);
+				break;
+                        case "/home":
+				home(request, response);
+				break;
 			default:
-				listUser(request, response);
+				listNegocio(request, response);
 				break;
 			}
 		} catch (SQLException ex) {
@@ -59,10 +66,12 @@ public class UserServlet extends HttpServlet {
 		}
 	}
 
-	private void listUser(HttpServletRequest request, HttpServletResponse response)
+	private void listNegocio(HttpServletRequest request, HttpServletResponse response)
 			throws SQLException, IOException, ServletException {
-		List<Usuario> listUser = userDAO.selectAllUsuarios();
-		request.setAttribute("listUser", listUser);
+		/*List<Usuario> listUser = userDAO.selectAllUsuarios();
+		request.setAttribute("listUser", listUser);*/
+                List<Negocio> listNegocio = userDAO.selectAllNegocio();
+                request.setAttribute("listNegocio", listNegocio);
 		RequestDispatcher dispatcher = request.getRequestDispatcher("user-list.jsp");
 		dispatcher.forward(request, response);
 	}
@@ -115,6 +124,35 @@ public class UserServlet extends HttpServlet {
 		userDAO.deleteUsuario(id);
 		response.sendRedirect("list");
 
+	}
+        
+        private void loginUser(HttpServletRequest request, HttpServletResponse response)
+			throws SQLException, IOException, ServletException {
+		/*List<Usuario> listUser = userDAO.selectAllUsuarios();
+		request.setAttribute("listUser", listUser);*/
+                /*List<Negocio> listNegocio = userDAO.selectAllNegocio();
+                request.setAttribute("listNegocio", listNegocio);*/
+		RequestDispatcher dispatcher = request.getRequestDispatcher("user_login.jsp");
+		dispatcher.forward(request, response);
+	}
+        
+        private void home(HttpServletRequest request, HttpServletResponse response)
+			throws SQLException, IOException, ServletException {
+		/*List<Usuario> listUser = userDAO.selectAllUsuarios();
+		request.setAttribute("listUser", listUser);*/
+                /*List<Negocio> listNegocio = userDAO.selectAllNegocio();
+                request.setAttribute("listNegocio", listNegocio);*/
+                String nickname = request.getParameter("nickname");
+                String password = request.getParameter("password");
+                System.out.println(nickname + " - " + password);
+                if(userDAO.comprobarUsuario(nickname, password)>0){
+                    RequestDispatcher dispatcher = request.getRequestDispatcher("user_home.jsp");
+                    dispatcher.forward(request, response);
+                }else{
+                    RequestDispatcher dispatcher = request.getRequestDispatcher("user_login.jsp");
+                    dispatcher.forward(request, response);
+                }
+		
 	}
 
 }

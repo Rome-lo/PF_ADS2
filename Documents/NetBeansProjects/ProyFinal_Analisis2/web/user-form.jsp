@@ -25,7 +25,7 @@
         </nav>
     </header>
     <br>
-    <!--<div class="container col-md-5">
+    <div class="container col-md-5">
         <div class="card">
             <div class="card-body">
                     <c:if test="${user != null}">
@@ -72,7 +72,7 @@
                     </form>
             </div>
         </div>
-    </div>-->
+    </div>
     
 </body>
 </html>
