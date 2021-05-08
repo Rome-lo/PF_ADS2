@@ -38,23 +38,33 @@
         <div class="container">
             <h2 class="text-center">HOME</h2>
             <hr>
-            <div class="container text-left">
-                <form action="home" method="get">
-                    <fieldset class="form-group">
-                            <label>Nickname</label> <input type="text"
-                                    class="form-control"
-                                    name="nickname" required="required" placeholder="ejem1234">
-                    </fieldset>
+            <div style="align-content: center;">
+                <div class="row">
+                    <c:forEach var="negocio" items="${listNegocio}">
+                        <div class="col-sm-6">
+                        
 
-                    <fieldset class="form-group">
-                            <label>Password</label> <input type="password"
-                                     class="form-control"
-                                    name="password" required="required" placeholder="password">
-                    </fieldset>
-                    
-                    <button type="submit" class="btn btn-success">Ingresar</button>
-                </form>
-                
+                            <div class="card">
+                                <div class="card-body">
+                                    <h5 class="card-title"><c:out value="${negocio.nombre}" /></h5>
+                                    <p class="card-text"><c:out value="${negocio.descripcion}" /></p>
+                                    <a href="edit?idusuario=<c:out value='${negocio.idnegocio}' />" class="btn btn-primary">Go somewhere</a>
+                                </div>
+                            </div>
+                            <br/>
+                        
+                        </div>
+                    </c:forEach>
+                    <!--<div class="col-sm-6">
+                      <div class="card">
+                        <div class="card-body">
+                          <h5 class="card-title">Special title treatment</h5>
+                          <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+                          <a href="#" class="btn btn-primary">Go somewhere</a>
+                        </div>
+                      </div>
+                    </div>-->
+                </div>
             </div>
             <br>
             

@@ -35,13 +35,14 @@ public class DAO {
         //NEGOCIOS
         private static final String SELECT_ALL_NEGOCIOS = "select * from negocio";
         private static final String SELECT_NEGOCIO_BY_ID = "select idnegocio,nombre,id_dir,descripcion,idusuario, sanciones from negocio where idnegocio =?";
+        private static final String SELECT_NEGOCIO_BY_DIR = "select idnegocio,nombre,id_dir,descripcion,idusuario, sanciones from negocio where id_dir =?";
 	private static final String DELETE_NEGOCIO_SQL = "delete from negocio where idnegocio = ?;";
 	private static final String UPDATE_NEGOCIO_SQL = "update negocio set nombre = ?,id_dir= ?, descripcion =?, sanciones =?, idusuario=? where idnegocio = ?;";
         private static final String INSERT_NEGOCIO_SQL = "INSERT INTO negocio" + "  (nombre, id_dir, descripcion, sanciones, idusuario) VALUES "
 			+ " (?, ?, ?, ?, ?);";
         
         //LOGIN
-        private static final String SELECT_LOGIN = "select idusuario from usuario where nickname =? and password=?";
+        private static final String SELECT_LOGIN = "select id_dir from usuario where nickname =? and password=?";
         
         
         //DAO
@@ -300,6 +301,28 @@ public class DAO {
 		}
 		return negocio;
 	}
+        
+        public List<Negocio> selectNegocioByDir(int id_dir) {
+		List<Negocio> negocios = new ArrayList<>();
+		try (Connection connection = getConnection();
+				PreparedStatement preparedStatement = connection.prepareStatement(SELECT_NEGOCIO_BY_DIR);) {
+			preparedStatement.setInt(1, id_dir);
+			System.out.println(preparedStatement);
+			ResultSet rs = preparedStatement.executeQuery();
+
+			while (rs.next()) {
+				int id = rs.getInt("idnegocio");
+				String nombre = rs.getString("nombre");
+				String descripcion = rs.getString("descripcion");
+                                int sanciones = rs.getInt("sanciones");
+                                int idusuario = rs.getInt("idusuario");
+				negocios.add(new Negocio(id, nombre, id_dir, descripcion, sanciones, idusuario));
+			}
+		} catch (SQLException e) {
+			printSQLException(e);
+		}
+		return negocios;
+	}
 
 	public List<Negocio> selectAllNegocio() {
 
@@ -374,7 +397,7 @@ public class DAO {
 			ResultSet rs = preparedStatement.executeQuery();
 
 			rs.next();
-			int idusuario = rs.getInt("idusuario");
+			int idusuario = rs.getInt("id_dir");
                         System.out.println("---"+idusuario+"---");
                         return idusuario;	
 		} catch (SQLException e) {

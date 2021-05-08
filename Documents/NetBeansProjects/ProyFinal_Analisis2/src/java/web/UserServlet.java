@@ -145,7 +145,10 @@ public class UserServlet extends HttpServlet {
                 String nickname = request.getParameter("nickname");
                 String password = request.getParameter("password");
                 System.out.println(nickname + " - " + password);
-                if(userDAO.comprobarUsuario(nickname, password)>0){
+                int id_dir = userDAO.comprobarUsuario(nickname, password);
+                if(id_dir>0){
+                    List<Negocio> listNegocio = userDAO.selectNegocioByDir(id_dir);
+                    request.setAttribute("listNegocio", listNegocio);
                     RequestDispatcher dispatcher = request.getRequestDispatcher("user_home.jsp");
                     dispatcher.forward(request, response);
                 }else{
