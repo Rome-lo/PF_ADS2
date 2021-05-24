@@ -26,7 +26,11 @@
 
             <ul class="navbar-nav">
                 <li><a href="<%=request.getContextPath()%>/list"
-                        class="nav-link">Usuarios</a></li>
+                        class="nav-link">Inicio</a></li>
+            </ul>
+            <ul class="navbar-nav">
+                <li><a href="<%=request.getContextPath()%>/new"
+                        class="nav-link">Registrarme</a></li>
             </ul>
         </nav>
     </header>

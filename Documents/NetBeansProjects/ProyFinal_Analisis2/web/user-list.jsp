@@ -19,8 +19,8 @@
             </div>
 
             <ul class="navbar-nav">
-                <li><a href="<%=request.getContextPath()%>/list"
-                        class="nav-link">Usuarios</a></li>
+                <!--<li><a href="<%=request.getContextPath()%>/list"
+                        class="nav-link">Usuarios</a></li>-->
                 <li><a href="<%=request.getContextPath()%>/login"
                         class="nav-link">Ingresar</a></li>
             </ul>
@@ -34,22 +34,18 @@
         <div class="container">
             <h3 class="text-center">Estos negocios pueden interesarte</h3>
             <hr>
-            <div class="container text-left">
 
-                <a href="<%=request.getContextPath()%>/new" class="btn btn-success">Nuevo Usuario</a>
-            </div>
             <br>
             <div style="align-content: center;">
                 <div class="row">
                     <c:forEach var="negocio" items="${listNegocio}">
                         <div class="col-sm-6">
-                        
-
+                       
                             <div class="card">
                                 <div class="card-body">
                                     <h5 class="card-title"><c:out value="${negocio.nombre}" /></h5>
                                     <p class="card-text"><c:out value="${negocio.descripcion}" /></p>
-                                    <a href="edit?idusuario=<c:out value='${negocio.idnegocio}' />" class="btn btn-primary">Go somewhere</a>
+                                    <a href="<%=request.getContextPath()%>/negocio?rng=0&idnegocio=<c:out value='${negocio.idnegocio}' />" class="btn btn-primary">Ver perfil</a>
                                 </div>
                             </div>
                             <br/>
@@ -67,39 +63,7 @@
                     </div>-->
                 </div>
             </div>
-            <table class="table table-bordered">
-                <thead>
-                    <tr>
-                            <th>Id</th>
-                            <th>Nombre</th>
-                            <th>Apellido</th>
-                            <th>Nickname</th>
-                            <th>Contraseña</th>
-                            <th>Dirección</th>
-                            <th>Acciones</th>
-                    </tr>
-                </thead>
-                <tbody>
-                
-                    
-                    
-                    <c:forEach var="negocio" items="${listNegocio}">
-
-                        <tr>
-                            <td><c:out value="${negocio.idnegocio}" /></td>
-                            <td><c:out value="${negocio.nombre}" /></td>
-                            <td><c:out value="${negocio.id_dir}" /></td>
-                            <td><c:out value="${negocio.descripcion}" /></td>
-                            <td><c:out value="${negocio.sanciones}" /></td>
-                            <td><a href="edit?idusuario=<c:out value='${negocio.idnegocio}' />">Edit</a>
-                                    &nbsp;&nbsp;&nbsp;&nbsp; <a
-                                    href="delete?idusuario=<c:out value='${negocio.idnegocio}' />">Delete</a></td>
-                        </tr>
-                    </c:forEach>
-
-                </tbody>
-
-            </table>
+            
         </div>
     </div>
 </body>

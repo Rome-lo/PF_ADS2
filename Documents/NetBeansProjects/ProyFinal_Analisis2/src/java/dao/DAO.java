@@ -13,7 +13,7 @@ import model.Usuario;
 
 
 public class DAO {
-	private String jdbcURL = "jdbc:mysql://localhost:3306/proy_ads2?useSSL=false";
+	private String jdbcURL = "jdbc:mysql://localhost:3306/proy_ads2?allowPublicKeyRetrieval=true&useSSL=false";
 	private String jdbcUsername = "root";
 	private String jdbcPassword = "root";
 
@@ -40,6 +40,9 @@ public class DAO {
 	private static final String UPDATE_NEGOCIO_SQL = "update negocio set nombre = ?,id_dir= ?, descripcion =?, sanciones =?, idusuario=? where idnegocio = ?;";
         private static final String INSERT_NEGOCIO_SQL = "INSERT INTO negocio" + "  (nombre, id_dir, descripcion, sanciones, idusuario) VALUES "
 			+ " (?, ?, ?, ?, ?);";
+        
+        //DIRECCIONES
+        private static final String SELECT_CAT_DIRECCIONES = "select * from CAT_direcciones";
         
         //LOGIN
         private static final String SELECT_LOGIN = "select id_dir from usuario where nickname =? and password=?";
@@ -409,15 +412,39 @@ public class DAO {
         
         //////////////////////////////LOGIN FIN////////////////////////////////////////////
         
+        //////////////////////////////DIRECCIONES INICIO////////////////////////////////////////////
         
+        public List<String> selectAllDirecciones() {
+
+		// using try-with-resources to avoid closing resources (boiler plate code)
+		List<String> direcciones = new ArrayList<>();
+		// Step 1: Establishing a Connection
+		try (Connection connection = getConnection();
+
+				// Step 2:Create a statement using connection object
+			PreparedStatement preparedStatement = connection.prepareStatement(SELECT_CAT_DIRECCIONES);) {
+			System.out.println(preparedStatement);
+			// Step 3: Execute the query or update query
+			ResultSet rs = preparedStatement.executeQuery();
+
+			// Step 4: Process the ResultSet object.
+			while (rs.next()) {
+				String departamento = rs.getString("departamento");
+				direcciones.add(departamento);
+			}
+		} catch (SQLException e) {
+			printSQLException(e);
+		}
+		return direcciones;
+	}
         
-        
+        //////////////////////////////DIRECCIONES FIN////////////////////////////////////////////
 
 	private void printSQLException(SQLException ex) {
 		for (Throwable e : ex) {
 			if (e instanceof SQLException) {
 				e.printStackTrace(System.err);
-				System.err.println("SQLState: " + ((SQLException) e).getSQLState());
+				System.err.println("SQLState: " + ((SQLException) e).getSQLState ());
 				System.err.println("Error Code: " + ((SQLException) e).getErrorCode());
 				System.err.println("Message: " + e.getMessage());
 				Throwable t = ex.getCause();

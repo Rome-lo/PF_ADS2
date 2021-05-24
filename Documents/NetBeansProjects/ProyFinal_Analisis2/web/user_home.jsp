@@ -26,7 +26,11 @@
 
             <ul class="navbar-nav">
                 <li><a href="<%=request.getContextPath()%>/list"
-                        class="nav-link">Usuarios</a></li>
+                        class="nav-link">Cerrar sesión</a></li>
+            </ul>
+            <ul class="navbar-nav">
+                <li><a href="<%=request.getContextPath()%>/myNegocio"
+                        class="nav-link">Mi perfil</a></li>
             </ul>
         </nav>
     </header>
@@ -37,6 +41,7 @@
 
         <div class="container">
             <h2 class="text-center">HOME</h2>
+            <h3 class="text-center">Estos negocios se encuentran en tu área</h3>
             <hr>
             <div style="align-content: center;">
                 <div class="row">
@@ -48,7 +53,7 @@
                                 <div class="card-body">
                                     <h5 class="card-title"><c:out value="${negocio.nombre}" /></h5>
                                     <p class="card-text"><c:out value="${negocio.descripcion}" /></p>
-                                    <a href="edit?idusuario=<c:out value='${negocio.idnegocio}' />" class="btn btn-primary">Go somewhere</a>
+                                    <a href="<%=request.getContextPath()%>/negocio?rng=1&idnegocio=<c:out value='${negocio.idnegocio}' />" class="btn btn-primary">Ver perfil</a>
                                 </div>
                             </div>
                             <br/>

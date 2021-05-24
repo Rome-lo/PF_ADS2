@@ -39,6 +39,12 @@ public class UserServlet extends HttpServlet {
 			case "/new":
 				showNewForm(request, response);
 				break;
+                        case "/negocio":
+				showForm(request, response);
+				break;
+                        case "/myNegocio":
+				showForm(request, response);
+				break;
 			case "/insert":
 				insertUser(request, response);
 				break;
@@ -79,7 +85,20 @@ public class UserServlet extends HttpServlet {
 	private void showNewForm(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		RequestDispatcher dispatcher = request.getRequestDispatcher("user-form.jsp");
+                            List<String> listaMunicipios = userDAO.selectAllDirecciones();
+            request.setAttribute("listDirecciones", listaMunicipios);
 		dispatcher.forward(request, response);
+	}
+        
+        private void showForm(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+            int id = Integer.parseInt(request.getParameter("idnegocio"));
+            Negocio negocio = userDAO.selectNegocio(id);
+            RequestDispatcher dispatcher = request.getRequestDispatcher("negocio-form.jsp");
+            request.setAttribute("negocio", negocio);
+            /*List<String> listaMunicipios = userDAO.selectAllDirecciones();
+            request.setAttribute("listDirecciones", listaMunicipios);*/
+            dispatcher.forward(request, response);
 	}
 
 	private void showEditForm(HttpServletRequest request, HttpServletResponse response)

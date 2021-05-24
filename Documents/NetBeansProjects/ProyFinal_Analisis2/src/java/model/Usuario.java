@@ -17,6 +17,9 @@ public class Usuario {
     private String password;
     private int id_dir;
 
+    public Usuario() {
+    }
+
     public Usuario(int idusuario, String nombre, String apellido, String nickname, String password, int id_dir) {
         this.idusuario = idusuario;
         this.nombre = nombre;

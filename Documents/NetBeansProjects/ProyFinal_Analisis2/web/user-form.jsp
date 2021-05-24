@@ -20,7 +20,7 @@
 
             <ul class="navbar-nav">
                     <li><a href="<%=request.getContextPath()%>/list"
-                            class="nav-link">Usuarios</a></li>
+                            class="nav-link">Inicio</a></li>
             </ul>
         </nav>
     </header>
@@ -28,44 +28,40 @@
     <div class="container col-md-5">
         <div class="card">
             <div class="card-body">
-                    <c:if test="${user != null}">
-                            <form action="update" method="post">
-                    </c:if>
-                    <c:if test="${user == null}">
-                            <form action="insert" method="post">
-                    </c:if>
 
+                    <form action="insert" method="POST">
                     <caption>
-                            <h2>
-                                    <c:if test="${user != null}">
-                    Edit User
-            </c:if>
-                                    <c:if test="${user == null}">
-                    Add New User
-            </c:if>
-                            </h2>
+                        <h2>Registro de datos</h2>
                     </caption>
-
-                    <c:if test="${user != null}">
-                            <input type="hidden" name="id" value="<c:out value='${user.id}' />" />
-                    </c:if>
 
                     <fieldset class="form-group">
                             <label>Nombre</label> <input type="text"
-                                    value="<c:out value='${user.name}' />" class="form-control"
-                                    name="name" required="required">
+                                     class="form-control"
+                                    name="nombre" required="required">
+                    </fieldset>
+                        
+                    <fieldset class="form-group">
+                            <label>Apellido</label> <input type="text"
+                                     class="form-control"
+                                    name="apellido" required="required">
                     </fieldset>
 
                     <fieldset class="form-group">
-                            <label>Correo electrónico</label> <input type="text"
-                                    value="<c:out value='${user.email}' />" class="form-control"
-                                    name="email">
+                            <label>Nickname</label> <input type="text"
+                                     class="form-control"
+                                    name="nickname">
+                    </fieldset>
+                        
+                    <fieldset class="form-group">
+                            <label>Contraseña</label> <input type="password"
+                                     class="form-control"
+                                    name="password">
                     </fieldset>
 
                     <fieldset class="form-group">
-                            <label>País</label> <input type="text"
-                                    value="<c:out value='${user.country}' />" class="form-control"
-                                    name="country">
+                            <label>Dirección</label><input type="number"
+                                     class="form-control"
+                                    name="id_dir">      
                     </fieldset>
 
                     <button type="submit" class="btn btn-success">Agregar</button>
